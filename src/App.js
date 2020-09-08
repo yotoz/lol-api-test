@@ -6,14 +6,16 @@ import {
 	getUserByName,
 	getMatchByAccountId,
 	STATE_CODE,
-	getChampionName,
 	getAllChampions,
+	getLastestVersion,
+	ddragonUrl,
 } from './Config/config';
 
 function App() {
 	const [matches, setMatches] = useState([]);
 	const [state, setState] = useState(STATE_CODE[0]);
 	const [champions, setChampions] = useState({});
+	const [lastestVersion, setLastestVersion] = useState();
 
 	const handleGetData = () => {
 		setState(STATE_CODE[1]);
@@ -41,15 +43,16 @@ function App() {
 	};
 
 	useEffect(() => {
-		getAllChampions().then((result) => {
-			console.log(result);
+		getLastestVersion().then((version) => {
+			setLastestVersion(version);
+			getAllChampions(version).then((result) => {
+				let _champions = {};
+				Object.values(result).forEach((e) => {
+					_champions = { ..._champions, [e.key]: { ...e } };
+				});
 
-			let _champions = {};
-			Object.values(result).forEach((e) => {
-				_champions = { ..._champions, [e.key]: { ...e } };
+				setChampions(_champions);
 			});
-
-			setChampions(_champions);
 		});
 	}, []);
 
@@ -67,6 +70,12 @@ function App() {
 				return matches.map((match, idx) => {
 					return (
 						<div key={idx}>
+							<img
+								src={`${ddragonUrl}/cdn/${lastestVersion}/img/champion/${
+									champions[match.champion].id
+								}.png`}
+								alt={champions[match.champion].name}
+							/>
 							game id : {match.gameId}, role : {match.role},
 							champion : {champions[match.champion].name}
 						</div>

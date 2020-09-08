@@ -5,9 +5,9 @@ const ApiDefault = {
 };
 
 const Url = `/lol`;
-const ddragonUrl = `https://ddragon.leagueoflegends.com`;
+export const ddragonUrl = `https://ddragon.leagueoflegends.com`;
 
-const getLastestVersion = () => {
+export const getLastestVersion = () => {
 	return new Promise(async (resolve, reject) => {
 		const versionUrl = `${ddragonUrl}/api/versions.json`;
 
@@ -57,7 +57,7 @@ export const getMatchByAccountId = (accountId) => {
 	});
 };
 
-export const getChampionName = (championId) => {
+const getChampionName = (championId) => {
 	return new Promise(async (resolve, reject) => {
 		try {
 			const lastestVersion = await getLastestVersion();
@@ -80,13 +80,13 @@ export const getChampionName = (championId) => {
 	});
 };
 
-export const getAllChampions = async () => {
+export const getAllChampions = async (version) => {
 	try {
-		const lastestVersion = await getLastestVersion();
-
-		const championNameUrl = `${ddragonUrl}/cdn/${lastestVersion}/data/ko_KR/champion.json`;
+		const championNameUrl = `${ddragonUrl}/cdn/${version}/data/ko_KR/champion.json`;
 		const champions = await axios(championNameUrl);
 
 		return champions.data.data;
-	} catch (error) {}
+	} catch (error) {
+		console.log(error);
+	}
 };
