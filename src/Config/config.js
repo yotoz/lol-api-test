@@ -1,3 +1,5 @@
+import React, { useState, createContext } from 'react';
+
 import axios from 'axios';
 
 const ApiDefault = {
@@ -89,4 +91,20 @@ export const getAllChampions = async (version) => {
 	} catch (error) {
 		console.log(error);
 	}
+};
+
+export const UserRequestContext = createContext();
+
+export const UserRequestProvider = ({ children }) => {
+	const [user, setUser] = useState(null);
+	const context = {
+		user,
+		setUser,
+	};
+
+	return (
+		<UserRequestContext.Provider value={context}>
+			{children}
+		</UserRequestContext.Provider>
+	);
 };

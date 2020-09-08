@@ -9,6 +9,7 @@ import {
 	getAllChampions,
 	getLastestVersion,
 	ddragonUrl,
+	UserRequestProvider,
 } from './Config/config';
 
 function App() {
@@ -87,10 +88,10 @@ function App() {
 	}, [state]);
 
 	return (
-		<div className="App">
+		<UserRequestProvider>
 			<button onClick={handleGetData}>getMatches</button>
 			{drawByState}
-		</div>
+		</UserRequestProvider>
 	);
 }
 
