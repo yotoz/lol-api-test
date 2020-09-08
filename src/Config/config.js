@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const ApiDefault = {
-	key: 'RGAPI-06367617-241d-4d6b-a14e-01eff285e3eb',
+	key: '',
 };
 
 const Url = `/lol/summoner/v4/summoners`;
