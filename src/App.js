@@ -13,7 +13,7 @@ import {
 function App() {
 	const [matches, setMatches] = useState([]);
 	const [state, setState] = useState(STATE_CODE[0]);
-	let champions = {};
+	const [champions, setChampions] = useState({});
 
 	const handleGetData = () => {
 		setState(STATE_CODE[1]);
@@ -44,11 +44,12 @@ function App() {
 		getAllChampions().then((result) => {
 			console.log(result);
 
+			let _champions = {};
 			Object.values(result).forEach((e) => {
-				champions = { ...champions, [e.key]: { ...e } };
+				_champions = { ..._champions, [e.key]: { ...e } };
 			});
 
-			console.log(champions);
+			setChampions(_champions);
 		});
 	}, []);
 
@@ -67,7 +68,7 @@ function App() {
 					return (
 						<div key={idx}>
 							game id : {match.gameId}, role : {match.role},
-							champion : {typeof champions['1']}
+							champion : {champions[match.champion].name}
 						</div>
 					);
 				});

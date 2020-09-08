@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const ApiDefault = {
-	key: '',
+	key: 'RGAPI-06367617-241d-4d6b-a14e-01eff285e3eb',
 };
 
 const Url = `/lol`;
