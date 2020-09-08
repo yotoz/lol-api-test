@@ -93,6 +93,21 @@ export const getAllChampions = async (version) => {
 	}
 };
 
+export const getLeagueByUser = (userId) => {
+	return new Promise(async (resolve, reject) => {
+		const leagueUrl = `${Url}/league/v4/entries/by-summoner/${userId}?api_key=${ApiDefault.key}`;
+
+		try {
+			const result = await axios(leagueUrl);
+
+			resolve(result);
+		} catch (error) {
+			reject(error);
+		}
+	});
+};
+
+//////////////////////////////////////////////context
 export const UserRequestContext = createContext();
 
 export const UserRequestProvider = ({ children }) => {
@@ -108,3 +123,4 @@ export const UserRequestProvider = ({ children }) => {
 		</UserRequestContext.Provider>
 	);
 };
+//////////////////////////////////////////////////////
